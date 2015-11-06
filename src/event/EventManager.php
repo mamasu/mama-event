@@ -59,17 +59,13 @@ class EventManager implements EventManagerInterface{
      * Delete the observer from the list
      *
      * @param \SplObserver $observer
-     * @param string|null         $eventName
-     * @param string|null         $function
-     * @param mixed |null         $order
      */
-    public function detach(\SplObserver $observer, $eventName = Null, $function = Null, $order = Null) {
-        $newEventAttach = new \stdClass();
-        $newEventAttach->observer  = $observer;
-        $newEventAttach->function  = $function;
-        $newEventAttach->eventName = $eventName;
-        $newEventAttach->order     = $order;
-        $this->_observers->detach($newEventAttach);
+    public function detach(\SplObserver $observer) {
+        foreach ($this->_observers as $observerItem) {
+            if ($observerItem->observer === $observer) {
+                $this->_observers->detach($observerItem);
+            }
+        }
     }
 
     /**
